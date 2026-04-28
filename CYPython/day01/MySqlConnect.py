@@ -35,8 +35,34 @@ class MySqlTest:
         res = self.cur.fetchone()
         return res
 
+    def update(self,sql):
+        try:
+            self.cur.execute(sql)
+            self.conn.commit()
+            print("修改成功")
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
 
+    def db1_import_db2(self,sql):
+        try:
+            self.cur.execute(sql)
+            self.conn.commit()
+            print("数据库导入成功")
+            return True
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
 
+    def delete(self,sql):
+        try:
+            self.cur.execute(sql)
+            self.conn.commit()
+            print("删除用户成功")
+            return True
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
 
 
 
