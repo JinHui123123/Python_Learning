@@ -1,5 +1,6 @@
 from MySqlConnect import MySqlTest
 import random
+import hashlib
 
 class UserManage:
     def __init__(self):
@@ -67,7 +68,16 @@ class UserManage:
         if res1 and res2:
             print("-----用户注销成功-----")
 
-
+    def md5(self,str1):
+        # MD5加密
+        # 生成一个加密对象
+        m = hashlib.md5()
+        # 字符串转换为bytes类型
+        str_b = bytes(str1, "utf-8")
+        m.update(str_b)
+        # hexdigest 获取16进制的加密之后的字符串
+        res = m.hexdigest()
+        return res[:10]
 
 if __name__ == '__main__':
     um = UserManage()
