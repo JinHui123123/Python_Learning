@@ -18,7 +18,8 @@ class MySqlTest:
         self.cur.close()
         self.conn.close()
 
-    def fetch_all(self): #查询
+    # 查询全部
+    def fetch_all(self):
         cur = self.connect()
         sql = 'select * from user'
         cur.execute(sql)
@@ -27,14 +28,14 @@ class MySqlTest:
             print(str(i))
         self.close_mysql()
 
-    def insert_mysql(self):
-        pass
 
+    # 查找单个
     def fetchone(self,sql):
         self.cur.execute(sql)
         res = self.cur.fetchone()
         return res
 
+    # 修改
     def update(self,sql):
         try:
             self.cur.execute(sql)
@@ -44,6 +45,7 @@ class MySqlTest:
             print(e)
             self.conn.rollback()
 
+    # 导入user old
     def db1_import_db2(self,sql):
         try:
             self.cur.execute(sql)
@@ -54,11 +56,23 @@ class MySqlTest:
             print(e)
             self.conn.rollback()
 
+    # 删除
     def delete(self,sql):
         try:
             self.cur.execute(sql)
             self.conn.commit()
             print("删除用户成功")
+            return True
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
+
+    # 注册
+    def insert(self,sql):
+        try:
+            self.cur.execute(sql)
+            self.conn.commit()
+            print("插入用户成功")
             return True
         except Exception as e:
             print(e)
