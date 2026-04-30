@@ -9,21 +9,27 @@ class UserManage:
     def main(self):
         print("——————————欢迎来到用户管理系统————————")
         opt = input("请选择登录(1) 或 注册(2):")
-        if opt == 1:
+        if opt == "1":
             # 登录
             while True:
                 account = input("请输入账号：")
-                password = input("请输入密码：")
-                islogin = self.login(account, password)
+                password1 = input("请输入密码：")
+                password2 = self.md5(password1)
+                islogin = self.login(account, password2)
                 if not islogin:
                     print("输入的账户或密码错误！")
                 else:
                     #登录成功
-                    num = input("您是否需要修改个人信息(输入1) 或 注销账户(输入2):")
+                    num = input("您是否需要修改个人信息(输入1) 或 注销账户(输入2) "
+                                "或 查询个人信息(输入3) 或 查询所有信息(输入4):")
                     if num == "1":
                         self.modefy(account)
                     elif num == "2":
                         self.cancel(account)
+                    elif num == "3":
+                        self.select_one(account)
+                    elif num == "4":
+                        self.select_all()
                     break
         elif opt == "2":
             # 注册
@@ -114,6 +120,15 @@ class UserManage:
             print(sql)
             return self.mt.insert(sql)
 
+    def select_one(self,account):
+        pwd = input("查询时请再次输入密码:")
+        pwd2 = self.md5(pwd)
+        sql = f"select * from user where account ='{account}' and password ='{pwd2}';"
+        self.mt.query(sql)
+
+    def select_all(self):
+        sql = f"select * from user;"
+        self.mt.query(sql)
 
 
 if __name__ == '__main__':

@@ -78,5 +78,17 @@ class MySqlTest:
             print(e)
             self.conn.rollback()
 
+    # 查询个人信息
+    def query(self,sql):
+        try:
+            self.cur.execute(sql)
+            self.conn.commit()
+            res_list = self.cur.fetchall()
+            for i in res_list:
+                print(str(i))
+            print("查询用户信息成功")
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
 
 
