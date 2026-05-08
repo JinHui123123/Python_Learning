@@ -1,5 +1,4 @@
 from http.client import responses
-from uu import encode
 
 import requests
 
